@@ -28,6 +28,8 @@ jobs:
       # 3️⃣ Run your custom action or test
       - name: Test
         uses: zakarialaoui10/master@main
+        env: 
+          CUSTOM : "CUSTOM MSG"
 
       # 4️⃣ Commit & Push changes safely
       - name: Commit & Push
