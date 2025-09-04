@@ -29,11 +29,7 @@ jobs:
       - name: Test
         uses: zakarialaoui10/master@main
 
-      # 4️⃣ Run Node.js script
-      - name: Run Node Script
-        run: node scripts/index.js
-
-      # 5️⃣ Commit and Push changes
+      # 4️⃣ Commit and Push changes
       - name: Commit & Push
         run: |
           git config user.name github-actions
