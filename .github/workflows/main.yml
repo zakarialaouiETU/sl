@@ -22,7 +22,7 @@ jobs:
         env: 
           OWNER: ${{ github.repository_owner }}
           REPO: ${{ github.event.repository.name }}
-          CUSTOM : "CUSTOM MSG"
+          CUSTOM_TOKEN: ${{ secrets.CUSTOM_TOKEN }}
 
       # 4️⃣ Commit & Push changes safely
       - name: Commit & Push
