@@ -16,7 +16,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # 2️⃣ Extract Owner and Repo from github context
+      # 2️⃣ Set Owner and Repo env variables
       - name: Set Owner and Repo env variables
         run: |
           REPO_FULL=${{ github.repository }}
@@ -25,17 +25,19 @@ jobs:
           echo "OWNER=$OWNER" >> $GITHUB_ENV
           echo "REPO=$REPO" >> $GITHUB_ENV
 
-      # 3️⃣ Test
+      # 3️⃣ Run your custom action or test
       - name: Test
         uses: zakarialaoui10/master@main
 
-      # 4️⃣ Commit and Push changes
+      # 4️⃣ Commit & Push changes safely
       - name: Commit & Push
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add -A .
           git commit -m "generated" || echo "No changes to commit"
-          git push https://x-access-token:${CUSTOM_TOKEN}@github.com/$OWNER/$REPO.git
+          # Pull remote changes first to avoid rejection
+          git pull --rebase https://x-access-token:${CUSTOM_TOKEN}@github.com/$OWNER/$REPO.git main
+          git push https://x-access-token:${CUSTOM_TOKEN}@github.com/$OWNER/$REPO.git main
         env:
           CUSTOM_TOKEN: ${{ secrets.CUSTOM_TOKEN }}
