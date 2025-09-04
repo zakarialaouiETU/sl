@@ -16,19 +16,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # 2️⃣ Set Owner and Repo env variables
-      - name: Set Owner and Repo env variables
-        run: |
-          REPO_FULL=${{ github.repository }}
-          OWNER=$(echo "$REPO_FULL" | cut -d'/' -f1)
-          REPO=$(echo "$REPO_FULL" | cut -d'/' -f2)
-          echo "OWNER=$OWNER" >> $GITHUB_ENV
-          echo "REPO=$REPO" >> $GITHUB_ENV
-
       # 3️⃣ Run your custom action or test
       - name: Test
         uses: zakarialaoui10/master@main
         env: 
+          OWNER: ${{ github.repository_owner }}
+          REPO: ${{ github.event.repository.name }}
           CUSTOM : "CUSTOM MSG"
 
       # 4️⃣ Commit & Push changes safely
